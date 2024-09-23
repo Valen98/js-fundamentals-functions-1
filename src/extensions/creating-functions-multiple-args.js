@@ -9,7 +9,22 @@
 // -1, 1        | [-1, 0, 1]
 //
 // TODO: write code below
-
+function lowerUpperArray(n1, n2) {
+  let lower = 0
+  let upper = 0
+  let result = []
+  if(n1 < n2) {
+    lower = n1
+    upper = n2
+  }else {
+    lower = n2
+    upper = n1
+  }
+  for(let i = lower; i <= upper; i++) {    
+    result.push(i)
+  }
+  return result
+}
 // 2. define a function that takes two arguments: a string and a number.
 // The function should return the same string but in upper case with exclamation
 // marks appended to the end. The number of exclamation marks should be
@@ -22,6 +37,11 @@
 //
 // TODO: write code below
 
+function exclamation(string, number) {
+  string = string.toUpperCase()
+  return string + '!'.repeat(number)
+}
+
 // 3. define a function that takes two arguments: a string and a number.
 // The function should return the new time in 24hr time after adding the additional time in minutes.
 //
@@ -33,10 +53,37 @@
 // '12:50', 120 | '14:50'
 // '23:50', 30  | '00:20'
 // TODO: write code below
+function addTime(time, add) {
+  let timeSplit = time.split(':')
+  let hour = timeSplit[0]
+  let minutes = timeSplit[1]
 
+  let oldDate = new Date()
+
+  oldDate.setHours(hour, minutes)
+
+  let newDate = new Date(oldDate.getTime() + add * 60000)
+  let returnHour = ''
+  let returnMinutes = ''
+  if(newDate.getHours() === 0) {
+    returnHour = '0' + newDate.getHours()
+  }else {
+    returnHour = newDate.getHours()
+  }
+
+  if(newDate.getMinutes() < 10) {
+    returnMinutes += '0' + newDate.getMinutes()
+  }else {
+    returnMinutes = newDate.getMinutes()
+  }
+  
+  return `${returnHour}:${returnMinutes}`
+
+
+}
 // TODO: change the exported value to be the name of the function you defined
 module.exports = {
-  a: undefined, // 1. change undefined to be the name of the function defined to create the range of numbers (the first todo)
-  b: undefined, // 2. change undefined to be the name of the function defined to return the string with exclamations (the second todo)
-  c: undefined // etc
+  a: lowerUpperArray, // 1. change undefined to be the name of the function defined to create the range of numbers (the first todo)
+  b: exclamation, // 2. change undefined to be the name of the function defined to return the string with exclamations (the second todo)
+  c: addTime // etc
 }
